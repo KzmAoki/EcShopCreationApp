@@ -84,6 +84,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $this->authorize($product);
         $data = ['product' => $product];
 
         return view('products.edit', $data);
@@ -96,6 +97,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize($product);
         $this->validate($request, [
             'name' => 'required|max:255',
             'description' => 'required',
@@ -118,6 +120,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize($product);
         $shop = Product::find($product->shop_id);
         $product->delete();
 
